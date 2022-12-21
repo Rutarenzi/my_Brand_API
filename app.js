@@ -1,0 +1,59 @@
+import express, { json } from 'express';
+import { set, connect } from 'mongoose';
+import routes from "./src/routes/route";
+import smsRoute from "./src/routes/smsRoute";
+import userRoute from "./src/routes/userRoute";
+import passport from 'passport';
+import bodyParser from 'body-parser';
+
+set('strictQuery', true);
+
+connect('mongodb://127.0.0.1:27017/rutaDb', { useNewUrlParser: true })
+.then(()=>{
+    const app = express();
+    app.use(json());
+    app.use("/api", routes);
+    app.use("/api", smsRoute);
+    // new from user
+    app.use(bodyParser.urlencoded({extended: false}));
+    app.use(passport.initialize());
+    require('./src/middleware/auth')
+    app.use('/api/user', userRoute);
+    // app.use("/heloo",passport.authenticate('jwt',{session:false}),userRoute)
+
+    app.listen(2005,()=>{
+        console.log("server has started")
+    })
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//image to check later
+
+
+    // import { v2 as cloudinary } from 'cloudinary'
+    // cloudinary.config({ 
+    //     cloud_name: 'dwncoz80h', 
+    //     api_key: '565431864745684', 
+    //     api_secret: '-j9R4BM_Ld2EQk0wJXpr1oYqxpo' 
+    //   });   
