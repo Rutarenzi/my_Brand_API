@@ -5,6 +5,6 @@ version:
         -image: circleci/node@18.12.1
 
       steps: 
-      -checkout
+      - checkout
       -run: npm install
       -run: npm test 
