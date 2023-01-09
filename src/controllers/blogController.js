@@ -2,7 +2,7 @@ import Blog from  "../models/blogs";
 import Comment from "../models/comments";
 import blogSchema from "../validations/validateBlog";
 // import cloudinary from "cloudinary";
-
+import cloudinary from '../cloudinary';
 export class BlogController{
     // display all blogs
     static async allBlogs(req,res){
@@ -12,9 +12,13 @@ export class BlogController{
     // add a blog
     static async createBlog(req,res){
         try{
-        const {title,content} = req.body;
+        const {title,content,image} = req.body;
+        
         const result = await blogSchema.validateAsync(req.body);
-        const blog = new Blog({title,content})
+        const uploaded = await cloudinary.uploader.upload(image, {
+            folder: "Images",
+          });
+        const blog = new Blog({title,content,image:{url:uploaded.url}})
         await blog.save();
         res.send(blog)
     }catch(error){

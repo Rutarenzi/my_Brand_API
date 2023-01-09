@@ -1,5 +1,5 @@
 import  passport  from "passport";
-// import { Strategy as PassportLocalStrategy } from 'passport-local';
+   //import { Strategy as PassportLocalStrategy } from 'passport-local';
 import { Strategy as LocalStrategy } from 'passport-local';
 import User from "../models/user";
 
@@ -48,3 +48,4 @@ passport.use('signup',new LocalStrategy (
   ); 
 
 export default passport
+  

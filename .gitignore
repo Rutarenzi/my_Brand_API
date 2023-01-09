@@ -1,1 +1,4 @@
 node_modules
+coverage
+jest-stare
+__test__

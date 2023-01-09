@@ -1,22 +1,21 @@
 import { Router } from "express";
 import { BlogController } from "../controllers/blogController";
 const router = Router();
+import passport from "passport";
 // const Visitor = require("../models/visitors")
-
 // all blogs 
 router.get('/Blogs',BlogController.allBlogs);
-
 // add a blog
-router.post("/blog/add",BlogController.createBlog);
+router.post("/blog/add",passport.authenticate("jwt", { session: false }),BlogController.createBlog);
 
 // fetch single blog
 router.get("/blogs/:id",BlogController.readBlog );
 
 // update a single blog
- router.patch("/blogs/:id",BlogController.updateBlog);
+ router.patch("/blogs/:id",passport.authenticate("jwt", { session: false }),BlogController.updateBlog);
 
 //  delete a single blog
-router.delete("/blogs/:id",BlogController.deleteBlog);
+router.delete("/blogs/:id",passport.authenticate("jwt", { session: false }),BlogController.deleteBlog);
 
     // add comment to a blog
 router.patch("/blogs/:id/comment/add",BlogController.commentBlog);
