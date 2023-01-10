@@ -6,7 +6,7 @@ import passport from "passport";
 // all blogs 
 router.get('/Blogs',BlogController.allBlogs);
 // add a blog
-router.post("/blog/add",BlogController.createBlog);
+router.post("/blog/add",passport.authenticate("jwt", { session: false }),BlogController.createBlog);
 
 // fetch single blog
 router.get("/blogs/:id",BlogController.readBlog );
