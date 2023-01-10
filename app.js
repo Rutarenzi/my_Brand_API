@@ -11,11 +11,11 @@ import bodyParser from 'body-parser';
 set('strictQuery', true);
 const app = express();
 app.use(json());
-connect('mongodb://127.0.0.1:27017/rutaDb', { useNewUrlParser: true })
+connect('mongodb+srv://mongo:mongo1234@cluster0.rkd734d.mongodb.net/?retryWrites=true&w=majority', { useNewUrlParser: true })
 .then(()=>{
     
     
-    app.use("/api/v1/", routes);
+    app.use("/api/news/", routes);
     app.use("/api", smsRoute);
     // new from user
     app.use(bodyParser.urlencoded({extended: false}));

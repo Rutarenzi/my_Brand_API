@@ -12,7 +12,7 @@ describe(" Crud testing so far",()=>{
   test("view blog with 200 status", async ()=>{
     
      const response = await request(app)
-     .get("/api/v1/Blogs")
+     .get("/api/news/Blogs")
      .send();
      expect(response.statusCode).toBe(200);
   });
