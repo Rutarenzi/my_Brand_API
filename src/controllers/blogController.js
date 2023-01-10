@@ -12,13 +12,14 @@ export class BlogController{
     // add a blog
     static async createBlog(req,res){
         try{
-        const {title,content,image} = req.body;
+        const {title,content} = req.body;
         
         const result = await blogSchema.validateAsync(req.body);
-        const uploaded = await cloudinary.uploader.upload(image, {
-            folder: "Images",
-          });
-        const blog = new Blog({title,content,image:{url:uploaded.url}})
+        // const uploaded = await cloudinary.uploader.upload(image, {
+        //     folder: "Images",
+        //   });
+        // ,image:{url:uploaded.url}}
+        const blog = new Blog({title,content});
         await blog.save();
         res.send(blog)
     }catch(error){

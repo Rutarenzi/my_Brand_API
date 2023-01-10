@@ -4,7 +4,7 @@ import Blog from "../models/blogs";
 import mongoose from 'mongoose';
 import { BlogController } from "../controllers/blogController";
 import {token} from "./tokenStore";
-afterAll(()=>{ mongoose.connection.close();});
+ afterAll(()=>{ mongoose.connection.close();});
 
 
 // Crud testing
@@ -16,5 +16,5 @@ describe(" Crud testing so far",()=>{
      .send();
      expect(response.statusCode).toBe(200);
   });
-  afterAll(() => mongoose.disconnect());
+   afterAll(() => mongoose.disconnect());
 })
