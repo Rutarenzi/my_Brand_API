@@ -1,6 +1,5 @@
 version: 2.1
-orbs:
-  coveralls: coveralls/coveralls@1.0.6
+
 jobs:
   build:
     docker:
@@ -9,4 +8,4 @@ jobs:
       - checkout
       - run: npm install
       - run: npm test
-      - coveralls/upload
+    
