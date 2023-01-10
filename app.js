@@ -11,7 +11,7 @@ import bodyParser from 'body-parser';
 mongoose.set('strictQuery', true);
 const app = express();
 app.use(json());
-mongoose.connect('mongodb://127.0.0.1:27017/rutaDb', { useNewUrlParser: true })
+mongoose.connect('mongodb+srv://mongo:mongo1234@cluster0.rkd734d.mongodb.net/?retryWrites=true&w=majority', { useNewUrlParser: true })
 .then(()=>{
     
     
