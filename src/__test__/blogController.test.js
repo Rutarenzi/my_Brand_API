@@ -81,7 +81,7 @@ test("Posting a blog should provide unauthorized 401 as no token is provided", a
 });
 
 // check the error1
-test("This request should provide a 400 as no data is being passed so a validation error occurs", async () => {
+test("This occurs", async () => {
      const blog = await Blog.findOne();
      const id = blog._id;
      const response = await request(app)

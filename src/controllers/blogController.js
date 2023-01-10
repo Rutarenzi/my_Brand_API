@@ -6,8 +6,15 @@ import cloudinary from '../cloudinary';
 export class BlogController{
     // display all blogs
     static async allBlogs(req,res){
-        const blogs = await Blog.find();
-        res.send(blogs);  
+        try{ 
+
+            const blogs = await Blog.find();
+            return res.status(200).send(blogs); 
+             
+        }catch(error){
+           res.status(404).send(error);
+        }
+       
     }
     // add a blog
     static async createBlog(req,res){

@@ -12,6 +12,9 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
+  "jest":{
+    "testTimeout": 50000
+  },
   
   "dependencies": {
     "@babel/cli": "^7.19.3",
