@@ -58,7 +58,6 @@ passporter()
 
 router.get('/Blogs',BlogController.allBlogs);
 /**
- 
  * @swagger
  * /Blogs:
  *   get: 
@@ -70,12 +69,6 @@ router.get('/Blogs',BlogController.allBlogs);
  *     responses: 
  *       "200": 
  *         description: successfully operation
- *         content:
- *           application/json:
- *             schema:
- *               type: array
- *               items:
- *                 $ref: '#/components/schemas/Blog'
  *       "500": 
  *         description: internal server error
 */
@@ -145,10 +138,6 @@ router.get("/blogs/:id",BlogController.readBlog );
  *     responses:
  *       '200':
  *         description: successful operation
- *         content:
- *           application/json:
- *             schema:
- *               $ref: '#/components/schemas/Blog'
  *       '500':
  *         description: Internal server error
  */
@@ -191,10 +180,6 @@ router.get("/blogs/:id",BlogController.readBlog );
  *     responses:
  *       '200':
  *         description: Successful operation
- *         content:
- *           application/json:
- *             schema:
- *               $ref: '#/components/schemas/Blog'
  *       '409':
  *         description: Invalid input
  *       '500':
@@ -263,13 +248,6 @@ router.patch('/blogs/:id/like',BlogController.blogLiker)
  *     responses:
  *       '200':
  *         description: successful operation
- *         content:
- *           application/json:
- *             schema:
- *               type: object
- *               properties:
- *                 likes:
- *                   $ref: '#/components/schemas/Blog'
  *       '500':
  *         description: Internal server error
  *     security:

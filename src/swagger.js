@@ -25,7 +25,7 @@ const options = {
     },
     servers:[
       {
-          url: 'http://localhost:2005',
+          url: 'http://localhost:2005/api/news',
           description: 'Dev server'
       }
     ]
