@@ -3,8 +3,9 @@ import app from "../../app.js"
 import Blog from "../models/blogs";
 import mongoose from 'mongoose';
 import { BlogController } from "../controllers/blogController";
-import {token} from "./tokenStore";
- afterAll(()=>{ mongoose.connection.close();});
+import token from "./tokenStore";
+console.log(token);
+//  afterAll(()=>{ mongoose.connection.close();});
 
 
 // Crud testing
@@ -16,7 +17,15 @@ describe(" Crud testing so far",()=>{
      .send();
      expect(response.statusCode).toBe(200);
   });
-
+  
+  // test("posting test", async()=>{
+  //   const response = await request(app).post("/api/news/blog/add").set("Authorization",token)
+  //   .send({
+  //     title: "The first blog title",
+  //     content: "Blog content 1",
+  //   });  
+  //   expect(response.statusCode).toBe(200)
+  // });
 
 
   test("All blog should return json", async ()=>{
@@ -29,11 +38,13 @@ describe(" Crud testing so far",()=>{
   });
    test("single blog should return 200", async () => {
       const blog = await Blog.findOne();
+      console.log(blog)
       const Id = blog._id;
       const response = await request(app)
         .get("/api/news/blogs/" + Id)
         .send();
         expect(response.statusCode).toBe(200);
+        
    });
  test("single blog return the json", async () => {
   const blog = await Blog.findOne();
@@ -57,9 +68,9 @@ describe(" Crud testing so far",()=>{
 //     .send();
 //   expect(response.statusCode).toBe(200);
 // });
-// // check the error1
-// // this comment below is how i am importing token
-// // import {token} from "./tokenStore";
+// check the error1
+// this comment below is how i am importing token
+// import {token} from "./tokenStore";
 // test("This update blog", async () => {
 //   const blog = await Blog.findOne();
 //   const id = blog._id;
@@ -118,5 +129,5 @@ test("send like should return 200 ", async () => {
 
 
 
-   afterAll(() => mongoose.disconnect());
+  //  afterAll(() => mongoose.disconnect());
 })

@@ -2,6 +2,9 @@ import { Router } from "express";
 import { BlogController } from "../controllers/blogController";
 const router = Router();
 import passport from "passport";
+import passporter from "../middleware/passport";
+
+passporter()
 // const Visitor = require("../models/visitors")
 // all blogs
 
@@ -77,7 +80,9 @@ router.get('/Blogs',BlogController.allBlogs);
  *         description: internal server error
 */
 
-router.post("/blog/add",passport.authenticate("jwt", { session: false }),BlogController.createBlog);
+router.post("/blog/add",
+passport.authenticate("jwt", { session: false }),
+BlogController.createBlog);
 
 /**
  * @swagger
