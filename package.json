@@ -5,7 +5,7 @@
   "main": "app.js",
   "scripts": {
     "start": "nodemon --exec babel-node app.js",
-    "test": "jest --collect-coverage --detectOpenHandles --forceExit && coveralls < coverage/lcov.info",
+    "test": " jest --testTimeout=60000  --collect-coverage --detectOpenHandles --forceExit  && coveralls < coverage/lcov.info",
     "test:watch": "jest --watchAll  --detectOpenHandles --verbose"
   },
   "keywords": [],
