@@ -7,7 +7,7 @@ const ExtractJWT = passportJwt.ExtractJwt;
 export default (passport) =>{
     let opt={};
     opt.jwtFromRequest = ExtractJWT.fromAuthHeaderWithScheme('jwt')
-    opt.secretOrKey = "secretKey";
+    opt.secretOrKey = "TOP_SECRET";
     try{
         passport.use(new JWTstrategy(opt, async(jwt_payload, done)=>{
             let user = await user.findOne({_id:jwt_payload.userId}).exec();

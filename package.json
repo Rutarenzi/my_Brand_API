@@ -5,17 +5,15 @@
   "main": "app.js",
   "scripts": {
     "start": "nodemon --exec babel-node app.js",
-    "test": " jest --testTimeout=60000 --detectOpenHandles ",
+    "test": " jest --testTimeout=60000  --collect-coverage --detectOpenHandles ",
     "test:watch": "jest --watchAll  --detectOpenHandles --verbose"
-   
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "jest":{
+  "jest": {
     "testTimeout": 50000
   },
-  
   "dependencies": {
     "@babel/cli": "^7.19.3",
     "@babel/core": "^7.20.5",
@@ -35,7 +33,9 @@
     "multer": "^1.4.5-lts.1",
     "passport": "^0.4.1",
     "passport-jwt": "^4.0.0",
-    "passport-local": "^1.0.0"
+    "passport-local": "^1.0.0",
+    "swagger-jsdoc": "5.0.1",
+    "swagger-ui-express": "^4.6.0"
   },
   "devDependencies": {
     "jest": "^29.3.1",

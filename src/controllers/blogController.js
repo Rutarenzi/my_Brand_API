@@ -36,7 +36,7 @@ export class BlogController{
     // Read single blog
     static async readBlog(req,res){
         try{
-            const blog = await findOne({_id:req.params.id})
+            const blog = await Blog.findOne({_id:req.params.id})
             res.send(blog)
         } catch{
             res.status(404)
@@ -46,7 +46,7 @@ export class BlogController{
     //upadte a single blog
     static async updateBlog(req,res){
         try{
-            const blog = await findOne({_id: req.params.id})
+            const blog = await Blog.findOne({_id: req.params.id})
             const {title,content} = req.body
             if(title){
                 blog.title = title;
