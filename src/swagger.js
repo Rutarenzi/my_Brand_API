@@ -29,6 +29,15 @@ const options = {
           description: 'Dev server'
       }
     ]
+     components: {
+      securitySchemes: {
+        bearerAuth: {
+          type: "http",
+          scheme: "bearer",
+          bearerFormat: "JWT",
+        },
+      },
+    },
   },
   // Paths to files containing OpenAPI definitions
   apis: ['./src/routes/*.js'],
