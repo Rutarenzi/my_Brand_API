@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "",
   "main": "app.js",
+  "type": "module",
   "scripts": {
     "start": "babel-node app.js",
     "test": " jest --testTimeout=60000  --collect-coverage --detectOpenHandles --forceExit  && coveralls < coverage/lcov.info",
