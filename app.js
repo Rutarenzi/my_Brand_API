@@ -18,7 +18,7 @@ app.use(json());
 connect(process.env.DB_REMOTE, { useNewUrlParser: true })
 .then(()=>{console.log("DB started!!!")});
 app.use("/api/news/", routes);
-app.use("/api", smsRoute);
+app.use("/api/news/", smsRoute);
 
 // new from user
 app.use(bodyParser.urlencoded({extended: false}));
@@ -26,7 +26,7 @@ app.use(bodyParser.json());
 app.use(passport.initialize());
 require('./src/middleware/passport').default(passport)
 require('./src/middleware/auth')
-app.use('/api/user', userRoute);
+app.use('/api/news/user', userRoute);
 // app.use("/heloo",passport.authenticate('jwt',{session:false}),userRoute)
 
 app.listen(2005,()=>{console.log("server has started")});
