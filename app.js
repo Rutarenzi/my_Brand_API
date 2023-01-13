@@ -1,4 +1,4 @@
-import express, { json } from 'express';
+import express, {json} from "express";
 import mongoose ,{ set, connect } from 'mongoose';
 import routes from "./src/routes/route";
 import smsRoute from "./src/routes/smsRoute";
