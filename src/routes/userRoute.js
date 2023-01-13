@@ -59,7 +59,7 @@ router.post('/signup',passport.authenticate('signup', { session: false }),
  *                 email:
  *                   type: string
  *                   format: email
- *                   example: ngsol@gmail.com
+ *                   example: ruta@gmail.com
  *                 password:
  *                   type: string
  *                   format: password
