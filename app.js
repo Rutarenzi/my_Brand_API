@@ -26,7 +26,7 @@ app.use(bodyParser.json());
 app.use(passport.initialize());
 require('./src/middleware/passport').default(passport)
 require('./src/middleware/auth')
-app.use('/api/news/user', userRoute);
+app.use('/api/news/', userRoute);
 // app.use("/heloo",passport.authenticate('jwt',{session:false}),userRoute)
 
 app.listen(2005,()=>{console.log("server has started")});
