@@ -25,7 +25,7 @@ const options = {
     },
     servers:[
       {
-          url: 'https://lazy-puce-marlin-robe.cyclic.app/api/news',
+          url: 'https://my-brand-api-zgjz.onrender.com/api/news',
           description: 'Dev server'
       }
     ]
