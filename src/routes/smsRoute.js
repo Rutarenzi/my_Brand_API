@@ -60,13 +60,6 @@ router.post('/sendSms', messageController.sendSms);
  *     responses:
  *       '200':
  *         description: successful operation
- *         content:
- *           application/json:
- *             schema:
- *               type: object
- *               properties:
- *                 Message:
- *                    $ref: '#/components/schemas/Message'
  *       '500':
  *         description: Internal server error
  */
@@ -85,15 +78,6 @@ router.get('/admin/allMessage',passport.authenticate("jwt", { session: false }),
  *       responses:
  *         '200':
  *           description: successful operation
- *           content:
- *             application/json:
- *               schema:
- *                 type: object
- *                 properties:
- *                   messages:
- *                     type: array
- *                     items:
- *                       $ref: '#/components/schemas/Message'
  *         '404':
  *           description: No messages found
  *         '500':

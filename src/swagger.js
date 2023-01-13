@@ -25,7 +25,7 @@ const options = {
     },
     servers:[
       {
-          url: 'http://localhost:2005/api/news',
+          url: 'https://lazy-puce-marlin-robe.cyclic.app/api/news',
           description: 'Dev server'
       }
     ]
