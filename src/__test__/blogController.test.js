@@ -64,7 +64,7 @@ test("delete a blog should return with no token 401", async () => {
 test("updating blog should provide unauthorized 401 as no token is provided", async () => {
   const blog = await Blog.findOne();
   const id = blog._id;
-  const response = await request(app).patch("/api/blogs/" + id).send({
+  const response = await request(app).put("/api/blogs/" + id).send({
     title: "The first blog title",
     content: "Blog content 1",
   });
