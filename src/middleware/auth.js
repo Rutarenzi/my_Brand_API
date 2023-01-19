@@ -1,51 +1,49 @@
-import  passport  from "passport";
-   //import { Strategy as PassportLocalStrategy } from 'passport-local';
-import { Strategy as LocalStrategy } from 'passport-local';
+
+
+
+
+import passport from "passport";
 import User from "../models/user";
+import passportJwt from "passport-jwt";
 
-
-passport.use('signup',new LocalStrategy (
-      {
-        usernameField: 'email',
-        passwordField: 'password'
-      },
-      async (email, password, done) => {
-        try {
-          const user = await User.create({ email, password });
-          return done(null, user);
-        } catch (error) {
-          done(error);
-        }
+const ExtractJwt = passportJwt.ExtractJwt;
+const StrategyJwt = passportJwt.Strategy;
+function passportConfig(){
+passport.use(
+  new StrategyJwt(
+    {
+      jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
+      secretOrKey: 'TOP_SECRET',
+    },
+    async (jwtPayload, done) => {
+      try {
+        const user = await User.findOne({ _id: jwtPayload });
+        return done(null, user);
+      } catch (err) {
+        return done(err);
       }
-    )
-  );
+    }
+  )
+);
+  }
+export default passportConfig;
 
-  passport.use('login',new LocalStrategy(
-      {
-        usernameField: 'email',
-        passwordField: 'password'
-      },
-      async (email, password, done) => {
-        try {
-          const user = await User.findOne({ email });
-  
-          if (!user) {
-            return done(null, false, { message: 'User not found' });
-          }
-  
-          const validate = await user.isValidPassword(password);
-  
-          if (!validate) {
-            return done(null, false, { message: 'Wrong Password' });
-          }
-  
-          return done(null, user, { message: 'Logged in Successfully' });
-        } catch (error) {
-          return done(error);
-        }
-      }
-    )
-  ); 
 
-export default passport
-  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

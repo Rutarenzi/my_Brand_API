@@ -2,10 +2,9 @@ import request from "supertest";
 import app from "../../app.js"
 import Blog from "../models/blogs";
 import mongoose from 'mongoose';
-import { BlogController } from "../controllers/blogController";
 import token from "./tokenStore";
 console.log(token);
-//  afterAll(()=>{ mongoose.connection.close();});
+ afterAll(()=>{ mongoose.connection.close();});
 
 
 // Crud testing
@@ -13,24 +12,16 @@ describe(" Crud testing so far",()=>{
 
   test("view blog with 200 status", async ()=>{
      const response = await request(app)
-     .get("/api/news/Blogs")
+     .get("/api/blogs")
      .send();
      expect(response.statusCode).toBe(200);
   });
   
-  // test("posting test", async()=>{
-  //   const response = await request(app).post("/api/news/blog/add").set("Authorization",token)
-  //   .send({
-  //     title: "The first blog title",
-  //     content: "Blog content 1",
-  //   });  
-  //   expect(response.statusCode).toBe(200)
-  // });
 
 
   test("All blog should return json", async ()=>{
    const response = await request(app)
-   .get("/api/news/Blogs")
+   .get("/api/blogs")
    .send();
    expect(response.headers["content-type"]).toEqual(
       expect.stringContaining("json")
@@ -38,10 +29,10 @@ describe(" Crud testing so far",()=>{
   });
    test("single blog should return 200", async () => {
       const blog = await Blog.findOne();
-      console.log(blog)
+     
       const Id = blog._id;
       const response = await request(app)
-        .get("/api/news/blogs/" + Id)
+        .get("/api/blogs/" + Id)
         .send();
         expect(response.statusCode).toBe(200);
         
@@ -50,7 +41,7 @@ describe(" Crud testing so far",()=>{
   const blog = await Blog.findOne();
   const id = blog._id;
   const response = await request(app)
-    .get("/api/news/blogs/" + id)
+    .get("/api/blogs/" + id)
     .send();
   expect(response.headers["content-type"]).toEqual(
     expect.stringContaining("json")
@@ -58,48 +49,22 @@ describe(" Crud testing so far",()=>{
 });
 
 
-// check error
-// test("delete a blog should return 200", async () => {
-//   const blog = await Blog.findOne();
-//   const id = blog._id;
-//   const response = await request(app)
-//     .delete("/api/news/blogs/" + id)
-//     .set("Authorization", token)
-//     .send();
-//   expect(response.statusCode).toBe(200);
-// });
-// check the error1
-// this comment below is how i am importing token
-// import {token} from "./tokenStore";
-// test("This update blog", async () => {
-//   const blog = await Blog.findOne();
-//   const id = blog._id;
-//   const response = await request(app)
-//     .patch("/api/news/blogs/" + id)
-//     .set("Authorization", token)
-//     .send();
-//   expect(response.statusCode).toBe(400);
-// });
 
 
 test("delete a blog should return with no token 401", async () => {
    const blog = await Blog.findOne();
    const id = blog._id;
    const response = await request(app)
-     .delete("/api/news/blogs/" + id)
+     .delete("/api/blogs/" + id)
      .send();
    expect(response.statusCode).toBe(401);
  });
 
  
-
-
-
-//end of crud testing
-test("Posting a blog should provide unauthorized 401 as no token is provided", async () => {
+test("updating blog should provide unauthorized 401 as no token is provided", async () => {
   const blog = await Blog.findOne();
   const id = blog._id;
-  const response = await request(app).post("/api/news/blog/add").send({
+  const response = await request(app).patch("/api/blogs/" + id).send({
     title: "The first blog title",
     content: "Blog content 1",
   });
@@ -114,20 +79,9 @@ test("send like should return 200 ", async () => {
   const blog = await Blog.findOne();
   const id = blog._id;
   const response = await request(app)
-    .patch("/api/news/blogs/"+ id + "/like")
+    .patch("/api/blogs/"+ id + "/likes")
     .send();
   expect(response.statusCode).toBe(200);
 });
 
-
-
-
-
-
-
-
-
-
-
-  //  afterAll(() => mongoose.disconnect());
 })

@@ -1,7 +1,8 @@
 import { Router } from "express";
 import passport from "passport";
 import  jwt  from "jsonwebtoken";
-
+import User from "../models/user";
+import bcrypt from "bcrypt";
 
 const router = Router();
 
@@ -16,9 +17,6 @@ const router = Router();
  *            type: string
  *            format: objectId
  *            example: 63a14e44f08ce9c0f90689fe
- *          name:
- *            type: string
- *            example: Rugarama axcel
  *          email:
  *            type: string
  *            format: email
@@ -31,18 +29,22 @@ const router = Router();
  *            type: integer
  *            example: 0
  */
-
-router.post('/signup',passport.authenticate('signup', { session: false }),
-    async (req, res, done) => {
-      res.json({
-        message: 'Signup successful',
-        user: req.user
-      });
-    }
-);
+router.post('/signup', async (req, res,)=>{
+  const {email,password} = req.body;
+  const exists = await User.findOne({email:email});
+  if(exists){
+    res.status(409).send("user already exist")
+  } else {
+    const salt = await bcrypt.genSalt(10);
+    const hp = await bcrypt.hash(password, salt);
+    const newUser = new User({email: email, password: hp});
+    await newUser.save();
+    res.status(200).send("user created successfully");
+  }
+})
 /**
  * @swagger
- * /signup:
+ * /auth/signup:
  *   post:
  *     tags:
  *       - Users
@@ -59,18 +61,17 @@ router.post('/signup',passport.authenticate('signup', { session: false }),
  *                 email:
  *                   type: string
  *                   format: email
- *                   example: ngsol@gmail.com
+ *                   example: ruta2023@gmail.com
  *                 password:
  *                   type: string
  *                   format: password
- *                   example: andela
+ *                   example: 12345678
  *               required:
- *                 - name
  *                 - email
  *                 - password
  *     responses:
  *       "200":
- *           description: Success
+ *           description: Successfully
  *       '401':
  *         description: Unauthorized
  *       "409":
@@ -78,38 +79,28 @@ router.post('/signup',passport.authenticate('signup', { session: false }),
  *       '500':
  *         description: Internal server error
  */
+router.post('/login', async (req, res)=>{
+  const { email, password} = req.body;
+  const user = await User.findOne({email:email});
+  if(!user){
+    res.status(500).send("user not found")
+  } else {
+    const pswd = await bcrypt.compare(password, user.password);
 
-
-
-router.post('/login',async (req, res, next) =>{
-      passport.authenticate('login',async (err, user, info) =>{
-          try {
-            if (err || !user) {
-              const error = new Error('An error occurred.');
-  
-              return next(error);
-            }
-  
-            req.login(user,{ session: false }, async (error) => {
-
-                if (error) return next(error);
-  
-                const body = { _id: user._id, email: user.email };
-                const token = jwt.sign({ user: body }, 'TOP_SECRET');
-  
-                return res.json({ token });
-              }
-            );
-          } catch (error) {
-            return next(error);
-          }
-        }
-      )(req, res, next);
+    if(!pswd){
+      res.status(500).send("invalid password")
+    } else{
+      const token = jwt.sign({_id:user._id, email: user.email},'TOP_SECRET');
+      res.status(200).json({token:token});
     }
-);
+  }
+
+  
+})
+
 /**
  * @swagger
- *   /login:
+ *   /auth/login:
  *   post:
  *     tags:
  *       - Users
@@ -136,10 +127,14 @@ router.post('/login',async (req, res, next) =>{
  *                 - password
  *     responses:
  *       "200":
- *           description: Success
+ *           description: Successfully
  *       '500':
  *           description: Internal server error
  */
 
 export default router
+
+
+
+
 

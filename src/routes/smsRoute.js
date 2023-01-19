@@ -26,10 +26,10 @@ const router=Router();
  *           example: 63a567bc2a672df0a5192bb8  
  */
 
-router.post('/sendSms', messageController.sendSms);
+router.post('/messages', messageController.sendSms);
 /**
  * @swagger
- * /sendSms:
+ * /messages:
  *   post:
  *     tags:
  *       - Messages
@@ -64,11 +64,13 @@ router.post('/sendSms', messageController.sendSms);
  *         description: Internal server error
  */
 
-router.get('/admin/allMessage',passport.authenticate("jwt", { session: false }),messageController.allSms)
+router.get('/messages',
+passport.authenticate("jwt", { session: false }),
+messageController.allSms)
 
 /**
  * @swagger
- * /admin/allmessages:
+ * /messages:
  *    get:
  *       tags:
  *         - Messages
@@ -86,4 +88,11 @@ router.get('/admin/allMessage',passport.authenticate("jwt", { session: false }),
  *         - {}
  *         - bearerAuth: []
  */
+
+router.get('/message',
+ passport.authenticate('jwt',{session: false}),
+ messageController.singleSms)
+ router.delete("/messages/:id",
+ passport.authenticate('jwt',{session: false}),
+ messageController.deletesms)
 export default router;

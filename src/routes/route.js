@@ -1,12 +1,15 @@
 import { Router } from "express";
 import { BlogController } from "../controllers/blogController";
 const router = Router();
-import passport from "passport";
-import passporter from "../middleware/passport";
+// import passport from "../middleware/passport";
+import passport from "passport"
+// import passport from  "../middleware/auth";
+import upload from "../cloudinary"
 
-passporter()
+// passporter()
 // const Visitor = require("../models/visitors")
 // all blogs
+
 
 /**
  * @swagger
@@ -56,10 +59,10 @@ passporter()
  */
 
 
-router.get('/Blogs',BlogController.allBlogs);
+router.get('/blogs',BlogController.allBlogs);
 /**
  * @swagger
- * /Blogs:
+ * /blogs:
  *   get: 
  *     tags:
  *       - Blogs
@@ -73,13 +76,13 @@ router.get('/Blogs',BlogController.allBlogs);
  *         description: internal server error
 */
 
-router.post("/blog/add",
+router.post("/blogs", upload.single('image'),
 passport.authenticate("jwt", { session: false }),
 BlogController.createBlog);
 
 /**
  * @swagger
- * /blog/add:
+ * /blogs:
  *   post:
  *     tags:
  *       - Blogs
@@ -143,7 +146,7 @@ router.get("/blogs/:id",BlogController.readBlog );
  */
 
 // update a single blog
- router.patch("/blogs/:id",passport.authenticate("jwt", { session: false }),BlogController.updateBlog);
+ router.put("/blogs/:id",upload.single('image'),passport.authenticate("jwt", { session: false }),BlogController.updateBlog);
 
  /**
  * @swagger
@@ -193,7 +196,7 @@ router.get("/blogs/:id",BlogController.readBlog );
 //  delete a single blog
 // this how my delete route is protected
 router.delete("/blogs/:id",
-passport.authenticate("jwt",{ session: false }),
+ passport.authenticate("jwt",{ session: false }),
 BlogController.deleteBlog);
 /**
  * @swagger
@@ -223,13 +226,13 @@ BlogController.deleteBlog);
  */
 
     // add comment to a blog
-router.patch("/blogs/:id/comment/add",BlogController.commentBlog);
+router.put("/blogs/:id/comments",BlogController.commentBlog);
 
 // add like ??? problem of no unlike
-router.patch('/blogs/:id/like',BlogController.blogLiker)
+router.patch('/blogs/:id/likes',BlogController.blogLiker)
 /**
  * @swagger
- * /blogs/{Id}/like:
+ * /blogs/{Id}/likes:
  *   patch:
  *     tags:
  *       - Blogs
@@ -251,7 +254,7 @@ router.patch('/blogs/:id/like',BlogController.blogLiker)
  *       '500':
  *         description: Internal server error
  *     security:
- *       - {}
+ *       - {}   
  *       - bearerAuth: []
  */
 export default router
@@ -281,30 +284,4 @@ export default router
 
 
 
-// // like and unlike a comment of a blog
-// router.patch('/blogs/:id/like',async(req,res)=>{
-//     try{
-//     const blog = await Blog.findOne({_id: req.params.id})
-//    var  ipAddress = req.socket.remoteAddress;
-//     if(blog.likes.includes(ipAddress)){
-         
-//         // blog.likes=[]
-//         res.send(blog.likes)
-        
-//     }
-//     else{
-//         const like = Visitor({
-//             visitorIp:ipAddress
-//         })
-//         blog.likes.push(like.visitorIp)
-//         await blog.save()
-//         res.send(blog.likes.includes(ipAddress))
-        
-//     }
-// }  
-// catch{
-//     res.status(404)
-//     res.send({error: "no post to like"})
-//    }
-    
-// })
+
