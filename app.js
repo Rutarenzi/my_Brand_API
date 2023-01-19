@@ -26,6 +26,10 @@ app.use('/api/auth/', userRoute);
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
 app.use(passport.initialize());
+require('./src/middleware/passport').default(passport)
+require('./src/middleware/auth')
+app.use('/api/user', userRoute);
+// app.use("/heloo",passport.authenticate('jwt',{session:false}),userRoute)
 
 app.listen(2006,()=>{console.log("server has started")});
 export default app;
@@ -50,3 +54,14 @@ export default app;
 
 
 
+
+
+//image to check later
+
+
+    // import { v2 as cloudinary } from 'cloudinary'
+    // cloudinary.config({ 
+    //     cloud_name: 'dwncoz80h', 
+    //     api_key: '565431864745684', 
+    //     api_secret: '-j9R4BM_Ld2EQk0wJXpr1oYqxpo' 
+    //   });   

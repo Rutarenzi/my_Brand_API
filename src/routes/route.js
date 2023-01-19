@@ -106,10 +106,6 @@ BlogController.createBlog);
  *     responses:
  *       '200':
  *         description: Successful operation
- *         content:
- *           application/json:
- *             schema:
- *               $ref: '#/components/schemas/Blog'
  *       '409':
  *         description: Invalid input
  *       '500':
