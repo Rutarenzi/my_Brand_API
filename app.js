@@ -26,10 +26,10 @@ app.use('/api/auth/', userRoute);
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
 app.use(passport.initialize());
-require('./src/middleware/passport').default(passport)
-require('./src/middleware/auth')
+
+
 app.use('/api/user', userRoute);
-// app.use("/heloo",passport.authenticate('jwt',{session:false}),userRoute)
+
 
 app.listen(2006,()=>{console.log("server has started")});
 export default app;
